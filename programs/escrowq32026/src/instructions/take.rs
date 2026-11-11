@@ -9,7 +9,6 @@ use anchor_spl::{
 };
 
 #[derive(Accounts)]
-#[instruction(seed: u64)]
 pub struct Take<'info> {
     #[account(mut)]
     pub taker: Signer<'info>,
@@ -36,7 +35,7 @@ pub struct Take<'info> {
         has_one=maker,
         has_one=mint_a,
         has_one=mint_b,
-        seeds = [ESCROW_SEED, maker.key().as_ref(), seed.to_le_bytes().as_ref()],
+        seeds = [ESCROW_SEED, maker.key().as_ref(), escrow.seed.to_le_bytes().as_ref()],
         bump= escrow.bump,
     )]
     pub escrow: Account<'info, Escrow>,
